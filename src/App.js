@@ -1,33 +1,36 @@
-import './App.css';
+import "./App.css";
+import { propTypes } from "prop-types";
+import Info from "./Info.js";
 
 function App() {
   return (
     <div className="App">
-      <Info> </Info>
-      <AddItem> </AddItem>
+      <Info />
+      <AddItem />
+      <AddItem text="Caleb" number={2} />
+      <Info />
     </div>
   );
 }
 
-function Info (){
-  const title = "Interval"
-  const showTitle = true
-
-
-  return(
-  <div>
-    <h1> {showTitle ? title : ""} </h1>
-    <p> Manage your pace while working out!</p>
-  </div>
+function AddItem(props) {
+  return (
+    <form>
+      <label for="text_form"> Type something: </label>
+      <input type="text" value={props.text} id="text_form" />
+      <p> {props.number} </p>
+    </form>
   );
 }
 
-function AddItem(){
-  return(
-  <form>
-    <label for="text_form"> Type something: </label> 
-    <input type = "text"  id= "text_form"/>
-  </form>
-  );
-}
+//https://www.youtube.com/watch?v=vMeR1aaNhtk&list=PLzMcBGfZo4-nRV61oEu3KfMwWKI571uPT&index=5
+
+AddItem.defaultProps = {
+  number: 1,
+};
+
+AddItem.propTypes = {
+  number: propTypes.number,
+};
+
 export default App;
