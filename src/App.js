@@ -1,36 +1,32 @@
 import "./App.css";
-import { propTypes } from "prop-types";
-import Info from "./Info.js";
+import SearchBar from "./SearchBar";
+import AddItem from "./Additem";
+import ItemsDisplay from "./ItemsDisplay";
+import { useState } from "react";
 
 function App() {
+  const [filters, setFilters] = useState({});
+  const [data, setData] = useState({ items: [] });
+
+  const updateFilters = (searchParams) => {
+    setFilters(searchParams);
+  };
+
+  const addItemToData = (item) => {
+    let items = data["items"];
+    item.id = items.length;
+    items.push(item);
+    setData({ items: items });
+    console.log(data);
+  };
+
   return (
     <div className="App">
-      <Info />
-      <AddItem />
-      <AddItem text="Caleb" number={2} />
-      <Info />
+      <SearchBar updateSearchParams={updateFilters} />
+      <ItemsDisplay items={data["items"]} />
+      <AddItem addItem={addItemToData} />
     </div>
   );
 }
-
-function AddItem(props) {
-  return (
-    <form>
-      <label for="text_form"> Type something: </label>
-      <input type="text" value={props.text} id="text_form" />
-      <p> {props.number} </p>
-    </form>
-  );
-}
-
-//https://www.youtube.com/watch?v=vMeR1aaNhtk&list=PLzMcBGfZo4-nRV61oEu3KfMwWKI571uPT&index=5
-
-AddItem.defaultProps = {
-  number: 1,
-};
-
-AddItem.propTypes = {
-  number: propTypes.number,
-};
 
 export default App;
